@@ -19,16 +19,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.movie.dto.request.MovieRequest;
+import com.movie.dto.response.MovieResponse;
+import com.movie.enums.MovieType;
 import com.movie.service.MovieService;
-import com.movie.service.dto.request.MovieRequest;
-import com.movie.service.dto.response.MovieResponse;
-import com.movie.service.enums.MovieType;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MovieController.class)
 class MovieControllerTest {
 
-	private static final String URI="/api/movie";
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -38,56 +37,48 @@ class MovieControllerTest {
 	@Test
 	void testForGetMovieByIdShouldReturnMovieIdExists() throws Exception {
 		Long id = Long.valueOf(2);
-		MovieResponse movieResponse =new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
-        when(movieService.getById(id)).thenReturn(movieResponse);
+		MovieResponse movieResponse = new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
+		when(movieService.getMovieById(id)).thenReturn(movieResponse);
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/v1.0/movies/2")).andDo(print()).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.rating").value("3.0"));
+	}
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/movie/2"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.
-                		jsonPath("$.title").value("Dance"))
-                .andExpect(MockMvcResultMatchers
-                		.jsonPath("$.rating").value("3.0"));
-	}
-	
 	@Test
-    public void testForDeleteMovieByGivenId() throws Exception {
-        doNothing().when(movieService).delete(Long.valueOf(1));
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/movie/1");
-        mockMvc.perform(requestBuilder).andDo(print()).andExpect(status().isOk());
+	public void testForDeleteMovieByGivenId() throws Exception {
+		doNothing().when(movieService).deleteMovieById(Long.valueOf(1));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/v1.0/movies/1");
+		mockMvc.perform(requestBuilder).andDo(print()).andExpect(status().isOk());
 	}
-	
+
 	@Test
 	void testForCreateMovieForGivenMovieData() throws JsonProcessingException, Exception {
-		MovieRequest request = new MovieRequest("Dance",MovieType.ACTION, 3.0 );
-		MovieResponse response =new MovieResponse(2l, "Dance", MovieType.ACTION, 3.0);
-        when(movieService.create(request)).thenReturn(response);
+		MovieRequest request = new MovieRequest("Dance", MovieType.ACTION, 3.0);
+		MovieResponse response = new MovieResponse(2l, "Dance", MovieType.ACTION, 3.0);
+		when(movieService.create(request)).thenReturn(response);
 
-        ObjectMapper mapper = new ObjectMapper();
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/movie")
-                .content(mapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(print())
-                .andExpect(status().isOk()).
-                andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.type").value("ACTION"));
+		ObjectMapper mapper = new ObjectMapper();
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/api/v1.0/movies").content(mapper.writeValueAsString(request))
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andDo(print()).andExpect(status().isCreated())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.type").value("ACTION"));
 	}
-	
+
 	@Test
 	void testForUpdateMovieWithGivenId() throws JsonProcessingException, Exception {
 		Long id = Long.valueOf(2);
-		MovieResponse response =new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
-		MovieRequest request = new MovieRequest("Dance",MovieType.ACTION, 3.0 );
-		
-
-        when(movieService.update(id, request)).thenReturn(response);
-
-        ObjectMapper mapper = new ObjectMapper();
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/movie/2")
-        		.content(mapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.type").value("ACTION"));
+		MovieResponse response = new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
+		MovieRequest request = new MovieRequest("Dance", MovieType.ACTION, 3.0);
+		when(movieService.update(id, request)).thenReturn(response);
+		ObjectMapper mapper = new ObjectMapper();
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.put("/api/v1.0/movies/2").content(mapper.writeValueAsString(request))
+						.contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.type").value("ACTION"));
 	}
 
 }

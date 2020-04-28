@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.movie.dto.request.MovieRequest;
+import com.movie.dto.response.MovieResponse;
 import com.movie.service.MovieService;
-import com.movie.service.dto.request.MovieRequest;
-import com.movie.service.dto.response.MovieResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/movie")
+@RequestMapping("/api/v1.0/movies")
 @Slf4j
 public class MovieController {
 
@@ -33,31 +33,31 @@ public class MovieController {
 	@GetMapping
 	public ResponseEntity<List<MovieResponse>> getAll() {
 		log.info("request for all movies");
-		return ResponseEntity.status(HttpStatus.OK).body(movieService.getAll());
+		return ResponseEntity.status(HttpStatus.OK).body(movieService.getAllMovies());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MovieResponse> get(@PathVariable("id") Long id) {
+	public ResponseEntity<MovieResponse> get(@PathVariable("id") final Long id) {
 		log.info("request for getting movie by id : {}", id);
-		return ResponseEntity.status(HttpStatus.OK).body(movieService.getById(id));
+		return ResponseEntity.status(HttpStatus.OK).body(movieService.getMovieById(id));
 	}
 
 	@PostMapping
-	public ResponseEntity<MovieResponse> create(@RequestBody @Valid MovieRequest movie) {
+	public ResponseEntity<MovieResponse> create(@RequestBody @Valid final MovieRequest movie) {
 		log.info("request for creating movie : {}", movie);
-		return ResponseEntity.status(HttpStatus.OK).body(movieService.create(movie));
+		return ResponseEntity.status(HttpStatus.CREATED).body(movieService.create(movie));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<MovieResponse> update(@PathVariable("id") Long id, @RequestBody MovieRequest movie) {
+	public ResponseEntity<MovieResponse> update(@PathVariable("id") final Long id, @RequestBody @Valid final MovieRequest movie) {
 		log.info("request for updating movie by id : {}", id);
 		return ResponseEntity.status(HttpStatus.OK).body(movieService.update(id, movie));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") final Long id) {
 		log.info("request for deleting movie by id : {}", id);
-		movieService.delete(id);
+		movieService.deleteMovieById(id);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.movie.service.exception;
+package com.movie.exception;
 
 public class MovieException extends RuntimeException {
 

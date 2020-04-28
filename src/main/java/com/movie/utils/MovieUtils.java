@@ -1,11 +1,11 @@
-package com.movie.service.utils;
+package com.movie.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.movie.service.dto.request.MovieRequest;
-import com.movie.service.dto.response.MovieResponse;
-import com.movie.service.entity.Movie;
+import com.movie.dto.request.MovieRequest;
+import com.movie.dto.response.MovieResponse;
+import com.movie.entity.Movie;
 
 public class MovieUtils {
 
@@ -25,8 +25,8 @@ public class MovieUtils {
 		movie.setType(request.getType());
 		return movie;
 	}
-	
-	public static List<MovieResponse> convert (List<Movie> source){
+
+	public static List<MovieResponse> convert(List<Movie> source) {
 		List<MovieResponse> target = new ArrayList<>();
 		for (Movie input : source) {
 			target.add(convert(input));

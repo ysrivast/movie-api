@@ -1,4 +1,5 @@
-package com.movie.service.exception;
+package com.movie.exception;
+
 import java.util.Date;
 
 public class ErrorDetails {

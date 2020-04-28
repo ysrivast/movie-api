@@ -1,4 +1,4 @@
-package com.movie.service.entity;
+package com.movie.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.movie.service.enums.MovieType;
+import com.movie.enums.MovieType;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,11 +30,8 @@ import lombok.ToString;
 public class Movie {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator="native")
-    @GenericGenerator(
-    	    name = "native",
-    	    strategy = "native"
-    	)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private Long id;
 	private String title;
 	@Enumerated(EnumType.STRING)

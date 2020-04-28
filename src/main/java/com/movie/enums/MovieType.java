@@ -1,7 +1,6 @@
-package com.movie.service.enums;
+package com.movie.enums;
 
 public enum MovieType {
-	
+
 	ACTION, DRAMA, SCIFI
 }
-

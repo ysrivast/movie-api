@@ -2,19 +2,19 @@ package com.movie.service;
 
 import java.util.List;
 
-import com.movie.service.dto.request.MovieRequest;
-import com.movie.service.dto.response.MovieResponse;
+import com.movie.dto.request.MovieRequest;
+import com.movie.dto.response.MovieResponse;
 
 public interface MovieService {
 
-	List<MovieResponse> getAll();
+	List<MovieResponse> getAllMovies();
 
 	MovieResponse create(MovieRequest movie);
 
-	MovieResponse getById(Long id);
+	MovieResponse getMovieById(Long id);
 
 	MovieResponse update(Long id, MovieRequest movie);
 
-	void delete(Long id);
+	void deleteMovieById(Long id);
 
 }

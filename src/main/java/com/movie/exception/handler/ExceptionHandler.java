@@ -1,4 +1,4 @@
-package com.movie.service.exception.handler;
+package com.movie.exception.handler;
 
 import java.util.Date;
 
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import com.movie.service.exception.ErrorDetails;
-import com.movie.service.exception.MovieException;
+import com.movie.exception.ErrorDetails;
+import com.movie.exception.MovieException;
 
 @ControllerAdvice
 public class ExceptionHandler {

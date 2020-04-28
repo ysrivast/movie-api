@@ -1,10 +1,6 @@
-package com.movie.service.dto.request;
+package com.movie.dto.response;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-
-import com.movie.service.enums.MovieType;
+import com.movie.enums.MovieType;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -19,12 +15,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class MovieRequest {
+public class MovieResponse {
 
-	@Size(min = 1, max = 30)
+	private Long id;
 	private String title;
 	private MovieType type;
-	@Min(0)
-	@Max(5)
 	private Double rating;
 }

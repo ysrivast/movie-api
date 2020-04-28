@@ -42,10 +42,10 @@ alternate :-
 
 |  URL                                                                         |  Method |
 |------------------------------------------------------------------------------|---------|
-|`http://localhost:8090/api/movie`  						                               |   GET   |
-|`http://localhost:8090/api/movie/{id}`                                 		   |   GET   |
-|`http://localhost:8090/api/movie`          	          				               |   POST  |
-|`http://localhost:8090/api/movie/{id}`                                  			 |   PUT   |
-|`http://localhost:8090/api/movie/{id}`                  				               |  DELETE |
+|`http://localhost:8090/api/v1.0/movies`  						               |   GET   |
+|`http://localhost:8090/api/v1.0/movies/{id}`                                  |   GET   |
+|`http://localhost:8090/api/v1.0/movies`          	          				   |   POST  |
+|`http://localhost:8090/api/v1.0/movies/{id}`                                  |   PUT   |
+|`http://localhost:8090/api/v1.0/movies/{id}`                  				   |  DELETE |
 
 
