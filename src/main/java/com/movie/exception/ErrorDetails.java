@@ -1,23 +1,19 @@
 package com.movie.exception;
 
 import java.util.Date;
+import java.util.List;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor(staticName = "of")
 public class ErrorDetails {
 	private Date timestamp;
 	private String message;
-
-	public ErrorDetails(java.util.Date date, String message) {
-		super();
-		this.timestamp = date;
-		this.message = message;
-	}
-
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
+	private List<String> details;
 }

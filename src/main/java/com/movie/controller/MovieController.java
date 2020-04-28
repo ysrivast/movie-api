@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.movie.constants.RestConstants;
 import com.movie.dto.request.MovieRequest;
 import com.movie.dto.response.MovieResponse;
 import com.movie.service.MovieService;
@@ -23,7 +24,7 @@ import com.movie.service.MovieService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/v1.0/movies")
+@RequestMapping(RestConstants.MOVIES_API)
 @Slf4j
 public class MovieController {
 
@@ -36,7 +37,7 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.OK).body(movieService.getAllMovies());
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(RestConstants.PATH_VARIABLE_ID)
 	public ResponseEntity<MovieResponse> get(@PathVariable("id") final Long id) {
 		log.info("request for getting movie by id : {}", id);
 		return ResponseEntity.status(HttpStatus.OK).body(movieService.getMovieById(id));
@@ -48,7 +49,7 @@ public class MovieController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(movieService.create(movie));
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping(RestConstants.PATH_VARIABLE_ID)
 	public ResponseEntity<MovieResponse> update(@PathVariable("id") final Long id, @RequestBody @Valid final MovieRequest movie) {
 		log.info("request for updating movie by id : {}", id);
 		return ResponseEntity.status(HttpStatus.OK).body(movieService.update(id, movie));

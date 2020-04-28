@@ -37,7 +37,7 @@ class MovieControllerTest {
 	@Test
 	void testForGetMovieByIdShouldReturnMovieIdExists() throws Exception {
 		Long id = Long.valueOf(2);
-		MovieResponse movieResponse = new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
+		MovieResponse movieResponse = MovieResponse.of(id, "Dance", MovieType.ACTION, 3.0);
 		when(movieService.getMovieById(id)).thenReturn(movieResponse);
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/v1.0/movies/2")).andDo(print()).andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Dance"))
@@ -54,7 +54,7 @@ class MovieControllerTest {
 	@Test
 	void testForCreateMovieForGivenMovieData() throws JsonProcessingException, Exception {
 		MovieRequest request = new MovieRequest("Dance", MovieType.ACTION, 3.0);
-		MovieResponse response = new MovieResponse(2l, "Dance", MovieType.ACTION, 3.0);
+		MovieResponse response = MovieResponse.of(2l, "Dance", MovieType.ACTION, 3.0);
 		when(movieService.create(request)).thenReturn(response);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -69,7 +69,7 @@ class MovieControllerTest {
 	@Test
 	void testForUpdateMovieWithGivenId() throws JsonProcessingException, Exception {
 		Long id = Long.valueOf(2);
-		MovieResponse response = new MovieResponse(id, "Dance", MovieType.ACTION, 3.0);
+		MovieResponse response = MovieResponse.of(id, "Dance", MovieType.ACTION, 3.0);
 		MovieRequest request = new MovieRequest("Dance", MovieType.ACTION, 3.0);
 		when(movieService.update(id, request)).thenReturn(response);
 		ObjectMapper mapper = new ObjectMapper();

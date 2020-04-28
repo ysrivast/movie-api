@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @ToString
 @EqualsAndHashCode
 public class MovieResponse {
