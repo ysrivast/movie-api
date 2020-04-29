@@ -1,4 +1,4 @@
-package com.movie.impl;
+package com.movie.service.impl;
 
 import java.util.List;
 import java.util.Optional;
