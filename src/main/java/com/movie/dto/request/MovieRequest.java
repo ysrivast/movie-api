@@ -2,6 +2,7 @@ package com.movie.dto.request;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -28,5 +29,6 @@ public class MovieRequest {
 	private MovieType type;
 	@DecimalMin("0.5")
 	@DecimalMax("5.0")
+	@Digits(integer=1, fraction=2)
 	private Double rating;
 }
